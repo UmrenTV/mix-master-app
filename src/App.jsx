@@ -1,22 +1,38 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Error from "./pages/Error";
-import Newsletter from "./pages/Newsletter";
-import HomeLayout from "./pages/HomeLayout";
+import { Home, About, Coctail, Newsletter, Error, HomeLayout } from "./pages";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Home />,
-    },
-    {
-        path: "/about",
-        element: <About />,
-    },
-    {
-        path: "/newsletter",
-        element: <Newsletter />,
+        element: <HomeLayout />,
+        children: [
+            {
+                index: true,
+                element: <Home />,
+            },
+            {
+                path: "coctail",
+                element: <Coctail />,
+            },
+            {
+                path: "newsletter",
+                element: <Newsletter />,
+            },
+            {
+                path: "about",
+                element: <About />,
+                children: [
+                    {
+                        index: true,
+                        element: <h2>Our Company</h2>,
+                    },
+                    {
+                        path: "person",
+                        element: <h2>John Doe</h2>,
+                    },
+                ],
+            },
+        ],
     },
     {
         path: "/error",
