@@ -1,8 +1,10 @@
+import Wrapper from "../assets/wrappers/CocktailPage";
+
 const Coctail = () => {
     return (
-        <div>
+        <Wrapper>
             <h2>Coctail Page</h2>
-        </div>
+        </Wrapper>
     );
 };
 
