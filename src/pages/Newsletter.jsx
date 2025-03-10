@@ -1,9 +1,19 @@
+import { Form } from "react-router-dom";
+
+export const action = async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    // this is basically how to submit a form (similar to loader) by using action from react-router-dom
+    // and using the Form component from react-router-dom. Keep in mind you have to set up action in App.jsx
+    // where the main router configuration is created, and import the action hook that we are using here.
+    console.log(data);
+
+    return null;
+};
+
 const Newsletter = () => {
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
     return (
-        <form className="form">
+        <Form className="form" method="POST">
             <h4 style={{ textAlign: "center", marginBottom: "2rem" }}>
                 our newsletter{" "}
             </h4>
@@ -50,7 +60,7 @@ const Newsletter = () => {
             >
                 Submit
             </button>
-        </form>
+        </Form>
     );
 };
 
