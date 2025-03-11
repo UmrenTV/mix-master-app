@@ -5,10 +5,20 @@ import axios from "axios";
 const coctailSingleUrl =
     "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
 
-export const loader = async (things) => {
+const getCoctailQuery = (id) => {
+    return {
+        queryKey: ["coctail", id],
+        queryFn: async () => {
+            const { data } = await axios.get(`${coctailSingleUrl}${id}`);
+            return data;
+        },
+    };
+};
+
+export const loader = (queryClient) => async (things) => {
     const { params } = things;
     const { id } = params;
-    const { data } = await axios.get(`${coctailSingleUrl}${id}`);
+    const data = await queryClient.ensureQueryData(getCoctailQuery(id));
     return { id, data };
 };
 
