@@ -1,6 +1,7 @@
 import Wrapper from "../assets/wrappers/CocktailPage";
 import { useLoaderData, Link, Navigate } from "react-router-dom";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const coctailSingleUrl =
     "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
@@ -23,11 +24,11 @@ export const loader = (queryClient) => async (things) => {
 };
 
 const Coctail = () => {
-    const { id, data } = useLoaderData();
+    const { id } = useLoaderData();
+    const { data } = useQuery(getCoctailQuery(id));
 
     // if no data
     if (!data) return <Navigate to="/" />;
-    // return <h2>That coctail doesn't exist</h2>
 
     const singleDrink = data.drinks[0];
     const {
@@ -38,19 +39,12 @@ const Coctail = () => {
         strGlass: glass,
         strInstructions: instructions,
     } = singleDrink;
-    // const ingredientList = [];
-    // for (let i = 1; i <= 15; i++) {
-    //     const ingredient = singleDrink[`strIngredient${i}`];
-    //     if (ingredient) ingredientList.push(ingredient);
-    //     else break;
-    // } one way of doing it.
 
     const ingredientList = Object.keys(singleDrink)
         .filter((key) => {
             return key.startsWith("strIngredient") && singleDrink[key] !== null;
         })
         .map((item) => singleDrink[item]);
-    // another way of doing it.
 
     console.log(ingredientList);
     return (
