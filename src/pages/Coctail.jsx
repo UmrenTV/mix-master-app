@@ -46,7 +46,6 @@ const Coctail = () => {
         })
         .map((item) => singleDrink[item]);
 
-    console.log(ingredientList);
     return (
         <Wrapper>
             <header>

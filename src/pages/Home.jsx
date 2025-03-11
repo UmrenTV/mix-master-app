@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import axios from "axios";
 import { useLoaderData } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
@@ -20,13 +19,12 @@ const searchCoctailsQuery = (searchTerm) => {
         },
     };
 };
-// we've modified this loader function, to return a function, so we can grab the query client from App.jsx (router configuration)
+
 export const loader = (queryClient) => {
     return async ({ request }) => {
         const url = new URL(request.url);
         const searchTerm = url.searchParams.get("search") || "vodka";
         await queryClient.ensureQueryData(searchCoctailsQuery(searchTerm));
-        // ensureQueryData is basically ensuring that the query is in the cache, if it isn't, it will fetch it.
         return { searchTerm };
     };
 };

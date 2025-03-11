@@ -14,7 +14,7 @@ export const action = async ({ request }) => {
     } catch (error) {
         console.log(error);
         toast.error(error?.response?.data?.msg);
-        return error; // we are returning the error here, so it doesn't trigger the global error handler or single page error
+        return error;
     }
 };
 
@@ -71,6 +71,16 @@ const Newsletter = () => {
             >
                 {isSubmitting ? "submitting" : "submit"}
             </button>
+            <p
+                style={{
+                    marginTop: "1rem",
+                    fontSize: "0.7rem",
+                    color: "grey",
+                }}
+            >
+                This is a demonstration only form, it doesn't do anything. Keep
+                the email to be "test@test.com" or else it won't work
+            </p>
         </Form>
     );
 };

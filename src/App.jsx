@@ -32,7 +32,7 @@ const router = createBrowserRouter([
                 index: true,
                 element: <Home />,
                 errorElement: <SinglePageError />,
-                loader: loadingLoader(queryClient), // since we modified the loader to pass the queryClient, it's instantly invoking it, and we have to do some modification in Home.jsx (where we use the loader) so it gets it as an argument
+                loader: loadingLoader(queryClient),
             },
             {
                 path: "coctail/:id",
