@@ -20,7 +20,6 @@ const Coctail = () => {
     // return <h2>That coctail doesn't exist</h2>
 
     const singleDrink = data.drinks[0];
-    console.log(singleDrink);
     const {
         strDrink: name,
         strCategory: category,
