@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 
 const HomeLayout = () => {
     const navigation = useNavigation();
-    console.log(navigation);
     const isPageLoading = navigation.state === "loading"; // you can use this to show a loading indicator
     const contextValue = "some value"; // you can use context on the outlet to pass this as many levels deep as you want
     return (

@@ -1,14 +1,21 @@
-import { Form } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+const newsletterUrl = "https://www.course-api.com/cocktails-newsletter";
 
 export const action = async ({ request }) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
-    // this is basically how to submit a form (similar to loader) by using action from react-router-dom
-    // and using the Form component from react-router-dom. Keep in mind you have to set up action in App.jsx
-    // where the main router configuration is created, and import the action hook that we are using here.
-    console.log(data);
-
-    return null;
+    try {
+        const response = await axios.post(newsletterUrl, data);
+        toast.success(response.data.msg);
+        return redirect("/");
+    } catch (error) {
+        console.log(error);
+        toast.error(error?.response?.data?.msg);
+        return error; // we are returning the error here, so it doesn't trigger the global error handler or single page error
+    }
 };
 
 const Newsletter = () => {
@@ -26,7 +33,7 @@ const Newsletter = () => {
                     id="name"
                     name="name"
                     className="form-input"
-                    defaultValue="john"
+                    required
                 />
             </div>
             <div className="form-row">
@@ -38,7 +45,7 @@ const Newsletter = () => {
                     id="lastName"
                     name="lastName"
                     className="form-input"
-                    defaultValue="doe"
+                    required
                 />
             </div>
             <div className="form-row">
@@ -51,6 +58,7 @@ const Newsletter = () => {
                     name="email"
                     className="form-input"
                     defaultValue="test@test.com"
+                    required
                 />
             </div>
             <button
