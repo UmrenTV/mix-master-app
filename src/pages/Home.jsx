@@ -8,9 +8,12 @@ import CoctailList from "../components/CoctailList";
 const coctailSearchUrl =
     "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=";
 
+const defaultSearchTerm = "vodka";
+
 const searchCoctailsQuery = (searchTerm) => {
+    localStorage.setItem("search", searchTerm);
     return {
-        queryKey: ["search", searchTerm || "vodka"],
+        queryKey: ["search", searchTerm],
         queryFn: async () => {
             const response = await axios.get(
                 `${coctailSearchUrl}${searchTerm}`
@@ -23,7 +26,10 @@ const searchCoctailsQuery = (searchTerm) => {
 export const loader = (queryClient) => {
     return async ({ request }) => {
         const url = new URL(request.url);
-        const searchTerm = url.searchParams.get("search") || "vodka";
+        const searchTerm =
+            url.searchParams.get("search") ||
+            localStorage.getItem("search") ||
+            defaultSearchTerm;
         await queryClient.ensureQueryData(searchCoctailsQuery(searchTerm));
         return { searchTerm };
     };
